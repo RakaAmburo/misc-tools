@@ -1,0 +1,19 @@
+#!/bin/bash
+N=${1:-2}
+
+if [ "$N" -lt 1 ]; then
+  echo "Uso: tmux-split N"
+  exit 1
+fi
+
+SESSION="split-$$"
+tmux new-session -d -s "$SESSION"
+
+for i in $(seq 2 $N); do
+  tmux split-window -v -t "$SESSION"
+  tmux select-layout -t "$SESSION" even-vertical
+done
+
+tmux select-layout -t "$SESSION" even-vertical
+tmux select-pane -t "$SESSION:0.0"
+tmux attach-session -t "$SESSION"
