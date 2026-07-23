@@ -8,6 +8,7 @@ fi
 
 SESSION="split-$$"
 tmux new-session -d -s "$SESSION"
+tmux set-option -t "$SESSION" mouse on
 
 for i in $(seq 2 $N); do
   tmux split-window -v -t "$SESSION"
